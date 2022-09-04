@@ -19,4 +19,7 @@ router.post('/login', authController.login);
 // Register
 router.post('/', userValidationRules(), validate, authController.register);
 
+// Logout
+router.post('/logout', authenticateJWT, authController.logout);
+
 module.exports = router;

@@ -46,7 +46,7 @@ class AuthController{
     }
 
     // Login Example with JWT
-    login = async(req, res) => {
+    login = async (req, res) => {
         try {
 
             // Token
@@ -94,6 +94,47 @@ class AuthController{
             // If Error
             return ResponseBulider.error(res, 500, error.message); 
         }  
+    }
+
+    // Logout
+    logout = async (req, res) => {
+        try {
+            // Prepare Token
+            let token;
+
+            // Getting all user
+            const user = await User.findOne({ email: req.user.email });
+
+            // Preparing Token
+            token = jwt.sign(
+                { userId: user.id, email: user.email },
+                "secretkeyappearshere",
+                { expiresIn: "1" }
+              );
+            
+            // Updating Token
+            User.updateOne(
+            {
+                _id: user._id
+            },
+            {
+                $set: {
+                    token: ''
+                }
+            }
+            ).then( async (result) => {
+            
+            // Getting one post 
+            const updateUser = await User.findOne({ _id: user._id });
+
+            // Redirect 
+            return ResponseBulider.success(res, 'Logout Successfully');
+        });
+
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
     }
 
 }
