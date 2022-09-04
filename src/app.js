@@ -17,7 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 // Seperate Route
+const auth_route = require('./api/routes/auth-route');
 const user_route = require('./api/routes/user-routes');
+app.use('/auth', auth_route);
 app.use('/user', user_route);
 
 const PORT = process.env.PORT;
