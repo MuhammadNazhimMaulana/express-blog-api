@@ -15,7 +15,7 @@ const { validationResult } = require('express-validator');
 
 class UserController{
 
-    // All Data
+    // Checking Profile
     profile = async (req, res) => {
         try {
 
@@ -28,6 +28,44 @@ class UserController{
             return ResponseBulider.error(res, 500, error.message); 
         }
     }
+
+    // Change Password
+    changePassword = async (req, res) => {
+        try {
+            // Getting all user
+            const user = await User.findOne({ email: req.user.email });
+
+            // generate salt to hash password
+            const salt = await bcrypt.genSalt(10);
+
+            // now we set user password to hashed password
+            req.body.password = await bcrypt.hash(req.body.password, salt);
+
+            // Updating Token
+            User.updateOne(
+            {
+                _id: user._id
+            },
+            {
+                $set: {
+                    password: req.body.password
+                }
+            }
+            ).then( async (result) => {
+            
+            // Getting one post 
+            const updateUser = await User.findOne({ _id: user._id });
+
+            // Redirect 
+            return ResponseBulider.success(res, updateUser);
+        });
+
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
+
 }
 
 module.exports = UserController
