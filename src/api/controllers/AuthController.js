@@ -128,7 +128,7 @@ class AuthController{
             const updateUser = await User.findOne({ _id: user._id });
 
             // Redirect 
-            return ResponseBulider.success(res, 'Logout Successfully');
+            return ResponseBulider.success(res, updateUser);
         });
 
         } catch (error) {
