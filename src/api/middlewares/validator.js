@@ -11,7 +11,7 @@ const loginRules = () => {
   ]
 }
 
-// Validation For Post
+// Validation For User
 const userValidationRules = () => {
   return [
     check('email', 'Email Tidak Valid').isString(),

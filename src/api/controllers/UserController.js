@@ -30,7 +30,7 @@ class UserController{
     }
 
     // Change Password
-    changePassword = async (req, res) => {
+    changeProfile = async (req, res) => {
         try {
             // Getting all user
             const user = await User.findOne({ email: req.user.email });
@@ -48,16 +48,15 @@ class UserController{
             },
             {
                 $set: {
-                    password: req.body.password
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email
                 }
             }
             ).then( async (result) => {
             
-            // Getting one post 
-            const updateUser = await User.findOne({ _id: user._id });
-
             // Redirect 
-            return ResponseBulider.success(res, updateUser);
+            return ResponseBulider.success(res, user);
         });
 
         } catch (error) {
