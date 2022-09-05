@@ -20,7 +20,7 @@ class UserController{
         try {
 
             // Getting all user
-            const user = await User.findOne({ email: req.user.email })
+            const user = await User.findOne({ email: req.user.email }).then()
 
             return ResponseBulider.success(res, user);
         } catch (error) {

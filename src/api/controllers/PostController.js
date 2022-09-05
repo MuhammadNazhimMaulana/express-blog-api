@@ -63,12 +63,28 @@ class PostController{
             // Adding current logged user
             req.body.author = user._id;
 
-            // New Function for adding contact
-            Post.insertMany(req.body, (error, result) => {
-       
-                // Return 
-                return ResponseBulider.success(res, result);
+            // New Function for creating post
+            Post.create(req.body, async (error, result) => {
+
+                // Updating User
+                User.updateOne(
+                    { 
+                        _id: result.author 
+                    },
+                    {
+                        $push: {
+                            posts: result.author
+                        }
+                    },
+                    {
+                        new: true
+                    }
+                    ).then((user) => {
+
+                        return ResponseBulider.success(res, result);
+                    })
             });
+
         }       
     }
 
