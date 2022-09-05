@@ -1,5 +1,6 @@
 // Model
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 // Helper
 const ResponseBulider = require('../helpers/responseBuilder');
@@ -42,7 +43,7 @@ class PostController{
     }
 
     // Store Data
-    store = (req, res) => {
+    store = async (req, res) => {
         // Konstanta errors
         const errors = validationResult(req);
     
@@ -55,7 +56,13 @@ class PostController{
             // Return 
             return ResponseBulider.error(res, 422, errors.errors);   
         }else{
-    
+
+            // Getting one user
+            const user = await User.findOne({ email: req.user.email });
+
+            // Adding current logged user
+            req.body.author = user._id;
+
             // New Function for adding contact
             Post.insertMany(req.body, (error, result) => {
        

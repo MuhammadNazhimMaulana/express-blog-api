@@ -32,7 +32,7 @@ class UserController{
     // Change Password
     changeProfile = async (req, res) => {
         try {
-            // Getting all user
+            // Getting one user
             const user = await User.findOne({ email: req.user.email });
 
             // generate salt to hash password
