@@ -142,7 +142,7 @@ class PostController{
                 },
                 { 
                     $pull: { 
-                        posts: user._id 
+                        posts: req.params._id 
                     } 
                 },
                 {
