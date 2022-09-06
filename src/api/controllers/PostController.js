@@ -73,7 +73,7 @@ class PostController{
                     },
                     {
                         $push: {
-                            posts: result.author
+                            posts: result._id
                         }
                     },
                     {
@@ -127,13 +127,31 @@ class PostController{
     }
 
     // Delete
-    delete = (req, res) => {
+    delete = async (req, res) => {
+
+        // Getting one user
+        const user = await User.findOne({ email: req.user.email });
 
         // Delete Process
-        Post.deleteOne({ _id: req.params._id}).then((result) => {
-            
-            // Redirect 
-            return ResponseBulider.success(res, result);
+        Post.deleteOne({ _id: req.params._id}, async (error, result) => {
+
+            // Updating User
+            User.updateOne(
+                { 
+                    _id: user._id 
+                },
+                { 
+                    $pull: { 
+                        posts: user._id 
+                    } 
+                },
+                {
+                    new: true
+                }
+                ).then((user) => {
+
+                    return ResponseBulider.success(res, user);
+                })
         });        
     }
 
