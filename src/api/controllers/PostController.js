@@ -15,7 +15,7 @@ class PostController{
         try {
 
             // Getting all posts
-            const posts = await Post.find()
+            const posts = await Post.find({ author: req.user.userId});
 
             return ResponseBulider.success(res, posts);
         } catch (error) {

@@ -10,7 +10,8 @@ const authenticateJWT = (req, res, next) => {
   
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-  
+        
+        // Verifying Token
         jwt.verify(token, accessTokenSecret, (err, user) => {
             if (err) {
                 return ResponseBulider.error(res, 403, err.message); 

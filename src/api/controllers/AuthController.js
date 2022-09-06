@@ -66,7 +66,7 @@ class AuthController{
 
             // Preparing Token
             token = jwt.sign(
-                { userId: user.id, email: user.email },
+                { userId: user._id, email: user.email },
                 "secretkeyappearshere",
                 { expiresIn: "1h" }
               );
