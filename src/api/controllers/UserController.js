@@ -20,9 +20,12 @@ class UserController{
         try {
 
             // Getting all user
-            const user = await User.findOne({ email: req.user.email }).then()
+            const user = await User.findOne({ email: req.user.email })
+            .populate('posts', { title: 1, body: 2}) // populate the relationship (specify field that need to be shown)
+            .then((user) => {
+                return ResponseBulider.success(res, user);
+            })
 
-            return ResponseBulider.success(res, user);
         } catch (error) {
             // If Error
             return ResponseBulider.error(res, 500, error.message); 
