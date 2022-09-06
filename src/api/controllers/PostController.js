@@ -20,9 +20,7 @@ class PostController{
             return ResponseBulider.success(res, posts);
         } catch (error) {
             // If Error
-            return res.status(500).send({
-                message: error.message || "Terjadi Error"
-            })
+            return ResponseBulider.error(res, 500, error.message);
         }
     }
 
@@ -36,9 +34,7 @@ class PostController{
             return ResponseBulider.success(res, post);
         } catch (error) {
             // If Error
-            return res.status(500).send({
-                message: error.message || "Terjadi Error"
-            })
+            return ResponseBulider.error(res, 500, error.message);
         }
     }
 
