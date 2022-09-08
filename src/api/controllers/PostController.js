@@ -15,9 +15,13 @@ class PostController{
         try {
 
             // Getting all posts
-            const posts = await Post.find({ author: req.user.userId});
+            const posts = await Post.find({ author: req.user.userId })
+            .populate('author', { _id: 1, username: 2, email: 3})
+            .then((posts) => {
+                
+                return ResponseBulider.success(res, posts);
+            });
 
-            return ResponseBulider.success(res, posts);
         } catch (error) {
             // If Error
             return ResponseBulider.error(res, 500, error.message);
