@@ -23,6 +23,31 @@ class CategoryController{
             return ResponseBulider.error(res, 500, error.message);
         }
     }
+
+    // Store Data
+    store = async (req, res) => {
+        // Konstanta errors
+        const errors = validationResult(req);
+    
+        // Kalau error
+        if(!errors.isEmpty())
+        {
+            // Status
+            res.status(422);
+
+            // Return 
+            return ResponseBulider.error(res, 422, errors.errors);   
+        }else{
+
+            // Creating Category
+            Category.create(req.body, async (error, category) => {
+
+                // Return 
+                return ResponseBulider.success(res, category);
+            });
+
+        }       
+    }
 }
 
 module.exports = CategoryController

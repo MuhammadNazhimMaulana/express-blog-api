@@ -2,6 +2,7 @@ const { body, validationResult, check } = require('express-validator');
 
 // Models
 const Post = require('../models/Post');
+const Category = require('../models/Category');
 const User = require('../models/User');
 
 // Validation For Login
@@ -77,6 +78,39 @@ const postValidationRules = () => {
   ]
 }
 
+// Validation For Post
+const categoryValidationRules = () => {
+  return [
+    check('slug', 'Slug Tidak Valid').isString(),
+
+    // Custom Validation
+    body('name').custom(async (value, { req }) => {
+
+        // Cek Duplikatnya
+        const duplicate = await Category.findOne({ name: value });
+
+        // Checking old title
+        if(req.body.oldCategory)
+        {
+            // If duplicate exist and title is changed
+            if(value != req.body.oldCategory && duplicate){
+                throw new Error('Nama Kategori Sudah ada')
+            }
+
+        }else{
+
+            // If there is a duplicate
+            if(duplicate){
+                throw new Error('Nama Kategori Sudah ada')
+            }            
+        }
+
+        return true;
+
+    })
+  ]
+}
+
 // Sending Error (Whether Error exist or not)
 const validate = (req, res, next) => {
   const errors = validationResult(req)
@@ -93,6 +127,7 @@ const validate = (req, res, next) => {
 module.exports = {
   loginRules,
   userValidationRules,
+  categoryValidationRules,
   postValidationRules,
   validate
 }
