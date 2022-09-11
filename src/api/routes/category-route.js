@@ -16,4 +16,7 @@ router.get('/', categoryController.index);
 // Post
 router.post('/', categoryValidationRules(), validate, categoryController.store);
 
+// Update
+router.put('/:_id', categoryValidationRules(), validate, categoryController.update)
+
 module.exports = router;

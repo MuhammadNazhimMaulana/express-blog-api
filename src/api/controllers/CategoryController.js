@@ -48,6 +48,45 @@ class CategoryController{
 
         }       
     }
+
+    // Update Data
+    update = async (req, res) => {
+        // Konstanta errors
+        const errors = validationResult(req);
+    
+        // Kalau error
+        if(!errors.isEmpty())
+        {
+            // Status
+            res.status(422);
+
+            // Return 
+            return ResponseBulider.error(res, 422, errors.errors);   
+        }else{
+
+            // Updating Category
+            Category.updateOne(
+                {
+                    _id: req.params._id
+                },
+                {
+                    $set: {
+                        name: req.body.name,
+                        slug: req.body.slug
+                    }
+                }
+                ).then( async (result) => {
+                
+                // Getting one category 
+                const category = await Category.findOne({ _id: req.params._id });
+
+                // Redirect 
+                return ResponseBulider.success(res, category);
+            });
+
+        }       
+    }
+
 }
 
 module.exports = CategoryController
