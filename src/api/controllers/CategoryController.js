@@ -87,6 +87,16 @@ class CategoryController{
         }       
     }
 
+    // Delete
+    delete = (req, res) => {
+
+        // Delete Process
+        Category.deleteOne({ _id: req.params._id}).then((result) => {
+            
+            // Redirect 
+            return ResponseBulider.success(res, result);
+        });        
+    }
 }
 
 module.exports = CategoryController

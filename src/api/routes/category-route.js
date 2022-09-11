@@ -19,4 +19,7 @@ router.post('/', categoryValidationRules(), validate, categoryController.store);
 // Update
 router.put('/:_id', categoryValidationRules(), validate, categoryController.update)
 
+// Delete
+router.delete('/:_id', categoryController.delete)
+
 module.exports = router;
