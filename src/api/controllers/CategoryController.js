@@ -24,6 +24,20 @@ class CategoryController{
         }
     }
 
+    // One Data
+    show = async (req, res) => {
+        try {
+
+            // Getting one category
+            const category = await Category.findOne({ _id: req.params._id })
+
+            return ResponseBulider.success(res, category);
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message);
+        }
+    }
+
     // Store Data
     store = async (req, res) => {
         // Konstanta errors

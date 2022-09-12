@@ -13,6 +13,9 @@ router.use(authenticateJWT)
 // Index
 router.get('/', categoryController.index);
 
+// Show
+router.get('/:_id', categoryController.show);
+
 // Post
 router.post('/', categoryValidationRules(), validate, categoryController.store);
 
