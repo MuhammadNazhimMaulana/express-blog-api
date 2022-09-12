@@ -34,8 +34,12 @@ class PostController{
 
             // Getting one posts
             const post = await Post.findOne({ _id: req.params._id })
-
-            return ResponseBulider.success(res, post);
+            .populate('author', { _id: 1, username: 2, email: 3})
+            .then((post) => {
+                
+                return ResponseBulider.success(res, post);
+            });
+            
         } catch (error) {
             // If Error
             return ResponseBulider.error(res, 500, error.message);
