@@ -14,49 +14,12 @@ class CategoryController{
     // All Data
     index = async (req, res) => {
         try {
-            const limit = parseInt(req.query.limit)
-            const cursor = req.query.cursor
 
-            return ResponseBulider.success(res, new Pagination(req, res, Category).paginate());
-            
-            let decryptedCursor
-            let categoriesCollection
-            if (cursor) {
-              decryptedCursor = Encryption.decrypt(cursor)
-              let decrypedDate = new Date(decryptedCursor * 1000)
-              categoriesCollection = await Category.find({
-                created_at: {
-                  $lt: new Date(decrypedDate),
-                },
-              })
-                .sort({ created_at: -1 })
-                .limit(limit + 1)
-                .exec()
-            } else {
-              categoriesCollection = await Category.find({})
-                .sort({ created_at: -1 })
-                .limit(limit + 1)
-            }
-            const hasMore = categoriesCollection.length === limit + 1
-            let nextCursor = null
-            if (hasMore) {
-              const nextCursorRecord = categoriesCollection[limit]
-              var unixTimestamp = Math.floor(nextCursorRecord.created_at.getTime() / 1000)
-              nextCursor = Encryption.encrypt(unixTimestamp.toString())
-              categoriesCollection.pop()
-            }
+            // Pagination
+            new Pagination(req, res, Category).paginate().then((result) => {
 
-            let data = {
-                result: categoriesCollection,
-                nextCursor, 
-                hasMore
-            }
-
-            return ResponseBulider.success(res, data);
-
-            // Getting all categories
-            // const categories = await Category.find({ author: req.user.userId })
-            
+                return ResponseBulider.success(res, result);
+            })           
 
         } catch (error) {
             // If Error
