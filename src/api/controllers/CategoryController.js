@@ -4,6 +4,7 @@ const Category = require('../models/Category');
 // Helpers
 const ResponseBulider = require('../helpers/responseBuilder');
 const Encryption = require('../helpers/encryption');
+const Pagination = require('../helpers/pagination');
 
 // Validation
 const { validationResult } = require('express-validator');
@@ -15,6 +16,9 @@ class CategoryController{
         try {
             const limit = parseInt(req.query.limit)
             const cursor = req.query.cursor
+
+            return ResponseBulider.success(res, new Pagination(req, res, Category).paginate());
+            
             let decryptedCursor
             let categoriesCollection
             if (cursor) {
