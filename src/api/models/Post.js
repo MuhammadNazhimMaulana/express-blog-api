@@ -17,7 +17,13 @@ const postSchema = new mongoose.Schema({
     published: {
         type: Boolean
     }
-});
+    },    
+    {
+        timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        }
+    });
 
 const Post = mongoose.model('Post', postSchema);
 

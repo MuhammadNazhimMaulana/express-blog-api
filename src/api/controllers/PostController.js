@@ -4,6 +4,7 @@ const User = require('../models/User');
 
 // Helper
 const ResponseBulider = require('../helpers/responseBuilder');
+const Pagination = require('../helpers/pagination');
 
 // Validation
 const { validationResult } = require('express-validator');
@@ -14,12 +15,10 @@ class PostController{
     index = async (req, res) => {
         try {
 
-            // Getting all posts
-            const posts = await Post.find({ author: req.user.userId })
-            .populate('author', { _id: 1, username: 2, email: 3})
-            .then((posts) => {
-                
-                return ResponseBulider.success(res, posts);
+            // Getting All Post with pagination
+            new Pagination(req, Post, 'author').paginate().then((result) => {
+
+                return ResponseBulider.success(res, result);
             });
 
         } catch (error) {

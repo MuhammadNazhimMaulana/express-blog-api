@@ -3,7 +3,6 @@ const Category = require('../models/Category');
 
 // Helpers
 const ResponseBulider = require('../helpers/responseBuilder');
-const Encryption = require('../helpers/encryption');
 const Pagination = require('../helpers/pagination');
 
 // Validation
