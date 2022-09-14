@@ -16,10 +16,10 @@ class CategoryController{
         try {
 
             // Pagination
-            new Pagination(req, res, Category).paginate().then((result) => {
+            new Pagination(req, Category).paginate().then((result) => {
 
                 return ResponseBulider.success(res, result);
-            })           
+            });           
 
         } catch (error) {
             // If Error

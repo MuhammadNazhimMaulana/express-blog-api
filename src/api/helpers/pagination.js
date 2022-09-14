@@ -2,7 +2,7 @@ const Encryption = require('../helpers/encryption');
 
 class Pagination{
 
-    constructor(req, res, model) {
+    constructor(req, model) {
         this.limit = parseInt(req.query.limit);
         this.cursor = req.query.cursor;
         this.decryptedCursor;
