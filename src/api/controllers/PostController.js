@@ -1,6 +1,7 @@
 // Model
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Category = require('../models/Category');
 
 // Helper
 const ResponseBulider = require('../helpers/responseBuilder');
@@ -62,10 +63,23 @@ class PostController{
 
             // Getting one user
             const user = await User.findOne({ email: req.user.email });
-
+            
             // Adding current logged user
             req.body.author = user._id;
 
+            // Finding Each Categories
+            req.body.categories.forEach(async(key, value) => {
+
+                // Finding Category
+                const category = await Category.findOne({ _id: key });
+
+                // If Category is not exist
+                if(!category){
+                    return ResponseBulider.error(res, 404, 'Category Tidak ditemukan');   
+                }
+            });
+            
+            
             // New Function for creating post
             Post.create(req.body, async (error, result) => {
 
@@ -76,7 +90,8 @@ class PostController{
                     },
                     {
                         $push: {
-                            posts: result._id
+                            posts: result._id,
+                            categories: req.body.categories
                         }
                     },
                     {
