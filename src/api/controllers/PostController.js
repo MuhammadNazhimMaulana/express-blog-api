@@ -33,10 +33,17 @@ class PostController{
         try {
 
             // Getting one posts
-            const post = await Post.findOne({ _id: req.params._id })
+            await Post.findOne({ _id: req.params._id })
             .populate('author', { _id: 1, username: 2, email: 3})
             .then((post) => {
                 
+                // Change data to json object
+                post = post.toObject();
+
+                // Change image to be readable
+                post.image = post.image.data.toString('utf8');
+
+                // Return the data
                 return ResponseBulider.success(res, post);
             });
             
