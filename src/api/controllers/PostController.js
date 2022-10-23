@@ -50,7 +50,13 @@ class PostController{
     store = async (req, res) => {
         // Konstanta errors
         const errors = validationResult(req);
-    
+
+        // Preparing Image
+        req.body.image = {
+            data: req.file.filename,
+            contenType: 'image/png'
+        }
+
         // Kalau error
         if(!errors.isEmpty())
         {
