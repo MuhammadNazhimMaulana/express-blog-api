@@ -3,6 +3,23 @@ const express = require('express');
 const { postValidationRules, validate } = require('../middlewares/validator')
 const { authenticateJWT } = require('../middlewares/auth')
 const router = express.Router();
+
+// Multer
+const multer = require('multer');
+
+// Storage for uploaded File
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+       cb(null, 'uploads');
+    },
+    filename: function (req, file, cb) {
+       cb(null, Date.now() + '-' + file.originalname);
+    }
+ });
+ 
+// Used Middleware
+const upload = multer({ storage: storage });
+
 const PostController = require('../controllers/PostController')
 
 const postController = new PostController()
@@ -17,7 +34,7 @@ router.get('/', postController.index);
 router.get('/:_id', postController.show);
 
 // Post
-router.post('/', postValidationRules(), validate, postController.store);
+router.post('/', upload.single('image'), postValidationRules(), validate, postController.store);
 
 // Update
 router.put('/:_id', postValidationRules(), validate, postController.update)
