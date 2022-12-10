@@ -1,5 +1,5 @@
 {
-  "name": "express-blog-api",
+  "name": "blog-restful-api",
   "version": "1.0.0",
   "description": "Simple API for developing a blog",
   "main": "app.js",
