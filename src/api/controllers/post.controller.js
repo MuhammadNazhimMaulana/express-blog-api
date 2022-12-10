@@ -1,7 +1,7 @@
 // Model
-const Post = require('../models/Post');
-const User = require('../models/User');
-const Category = require('../models/Category');
+const Post = require('../models/post.model');
+const User = require('../models/user.model');
+const Category = require('../models/category.model');
 
 // Helper
 const ResponseBulider = require('../helpers/responseBuilder');

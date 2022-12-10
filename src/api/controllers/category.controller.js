@@ -1,5 +1,5 @@
 // Model
-const Category = require('../models/Category');
+const Category = require('../models/category.model');
 
 // Helpers
 const ResponseBulider = require('../helpers/responseBuilder');
