@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const accessTokenSecret = 'secretkeyappearshere';
 
 // Response Builder
-const ResponseBulider = require('../helpers/responseBuilder');
+const ResponseBulider = require('../helpers/responseBuilder.helper');
 
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;

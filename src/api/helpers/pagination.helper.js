@@ -1,4 +1,4 @@
-const Encryption = require('../helpers/encryption');
+const Encryption = require('./encryption.helper');
 
 class Pagination{
 

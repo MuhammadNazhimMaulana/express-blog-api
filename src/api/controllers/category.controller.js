@@ -2,8 +2,8 @@
 const Category = require('../models/category.model');
 
 // Helpers
-const ResponseBulider = require('../helpers/responseBuilder');
-const Pagination = require('../helpers/pagination');
+const ResponseBulider = require('../helpers/responseBuilder.helper');
+const Pagination = require('../helpers/pagination.helper');
 
 // Validation
 const { validationResult } = require('express-validator');

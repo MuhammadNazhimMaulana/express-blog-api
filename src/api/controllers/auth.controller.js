@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // Helper
-const ResponseBulider = require('../helpers/responseBuilder');
+const ResponseBulider = require('../helpers/responseBuilder.helper');
 
 // Validation
 const { validationResult } = require('express-validator');
