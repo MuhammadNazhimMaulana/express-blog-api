@@ -17,10 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 // Seperate Route
-const auth_route = require('./api/routes/auth-route');
-const category_route = require('./api/routes/category-route');
-const post_route = require('./api/routes/post-routes');
-const user_route = require('./api/routes/user-routes');
+const auth_route = require('./api/routes/auth.route');
+const category_route = require('./api/routes/category.route');
+const post_route = require('./api/routes/post.route');
+const user_route = require('./api/routes/user.route');
 app.use('/auth', auth_route);
 app.use('/category', category_route);
 app.use('/post', post_route);

@@ -3,7 +3,7 @@ const express = require('express');
 const { categoryValidationRules, validate } = require('../middlewares/validator')
 const { authenticateJWT } = require('../middlewares/auth')
 const router = express.Router();
-const CategoryController = require('../controllers/CategoryController')
+const CategoryController = require('../controllers/category.controller')
 
 const categoryController = new CategoryController()
 
