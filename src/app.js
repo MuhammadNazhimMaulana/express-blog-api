@@ -1,6 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const methodOverride = require('method-override')
+const  fs = require('fs');
+
+// Upload Folder
+const dir = './uploads';
+
+// Checking Uploads Folder
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 // Env
 require('dotenv').config();
