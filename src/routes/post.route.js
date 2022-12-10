@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 // Used Middleware
 const upload = multer({ storage: storage });
 
-const PostController = require('../controllers/post.controller')
+const PostController = require('../controllers/api/post.controller')
 
 const postController = new PostController()
 

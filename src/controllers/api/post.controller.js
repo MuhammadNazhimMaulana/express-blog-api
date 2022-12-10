@@ -1,11 +1,11 @@
 // Model
-const Post = require('../models/post.model');
-const User = require('../models/user.model');
-const Category = require('../models/category.model');
+const Post = require('../../models/post.model');
+const User = require('../../models/user.model');
+const Category = require('../../models/category.model');
 
 // Helper
-const ResponseBulider = require('../helpers/responseBuilder.helper');
-const Pagination = require('../helpers/pagination.helper');
+const ResponseBulider = require('../../helpers/responseBuilder.helper');
+const Pagination = require('../../helpers/pagination.helper');
 
 // Validation
 const { validationResult } = require('express-validator');

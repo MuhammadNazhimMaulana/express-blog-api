@@ -3,7 +3,7 @@ const express = require('express');
 const { loginRules, validate, userValidationRules } = require('../middlewares/validator')
 const { authenticateJWT } = require('../middlewares/auth')
 const router = express.Router();
-const AuthController = require('../controllers/auth.controller')
+const AuthController = require('../controllers/api/auth.controller')
 
 // Defining Controller
 const authController = new AuthController()
