@@ -1,5 +1,5 @@
 name: App Check
-run-name: ${{ github.actor }} Checking App
+run-name: ${{ github.actor }} Push Update
 on:
   push:
     branches: [ master ]
