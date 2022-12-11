@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Copy .env
+        run: copy('.env.example', '.env')
+
       - name: Menggunakan Node.js versi ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           
-      - name: Copy .env
-        run: copy('.env.example', '.env');
-
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.8.0
         with:
