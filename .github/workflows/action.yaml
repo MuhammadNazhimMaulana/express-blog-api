@@ -1,4 +1,4 @@
-name: Continus Integration App
+name: App Check
 run-name: ${{ github.actor }} Checking App
 on:
   push:

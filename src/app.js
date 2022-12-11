@@ -39,3 +39,5 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server Jalan di http://localhost:${PORT}`)
 })
+
+module.exports = app; // for testing
