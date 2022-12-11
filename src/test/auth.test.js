@@ -4,6 +4,9 @@ const chaiHttp = require('chai-http');
 let should = chai.should();
 const app = require('../app');
 
+// Token After Login
+let token = '';
+
 // Starting Test
 chai.use(chaiHttp);
 
@@ -52,6 +55,34 @@ describe('Login Test', () => {
         res.body.data.should.have.property('email');
         res.body.data.should.have.property('password');
         res.body.data.should.have.property('token');
+
+        // Add Token
+        token = res.body.data.token;
+
+        done();
+      });
+  });
+});
+
+/*
+* Logout Test
+*/
+describe('Logout Test', () => {
+  it('Logout', (done) => {
+    let user = {
+        email: "cesar@gmail.com",
+        password: "demodemo123"
+    }
+    chai
+      .request(app)
+      .post('/auth/login')
+      .send(user)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.data.should.be.a('object');
+
+        // Remove Token
+        token = '';
         done();
       });
   });
