@@ -17,9 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Copy .env
-        run: copy(.env.example, .env)
-
       - name: Menggunakan Node.js versi ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -32,3 +29,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Running Test
+        run: npm run test
